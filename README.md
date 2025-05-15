@@ -22,7 +22,6 @@ This project is a simulator for controlling a fan/thermostat system. It allows u
 - The application uses **MongoDB** as the database to store temperature records, alarm logs, and configuration parameters.
 - Data is stored and retrieved from a **MongoDB Atlas cluster**, providing a secure, scalable, and highly available cloud database solution.
 - The cluster configuration ensures data durability and supports concurrent read/write operations necessary for real-time simulation and logging.
-- Connection to the MongoDB cluster is managed via a secure connection string, with credentials and sensitive information stored in environment variables for security.
 
 ## Technologies Used
 
