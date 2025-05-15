@@ -1,0 +1,61 @@
+# Ventilator Simulator
+
+## Description
+
+This project is a simulator for controlling a fan/thermostat system. It allows users to simulate how a fan responds to temperature changes by adjusting settings and visualizing the behavior in real time.
+
+## Key Features
+
+## Key Features
+
+- **Temperature Simulation:** The temperature is preset between 21.5°C and 22.5°C, simulating a realistic range for the environment.
+- **Fan Control:** The fan can be turned ON or OFF by pressing a toggle button. The button dynamically changes the fan’s state. Additionally, if the temperature decreases below the threshold and the button is not pressed, the fan stops automatically.
+- **Real-Time Temperature Graph:** A live chart displays temperature changes over time, helping users visualize how temperature fluctuates and how the fan responds.
+- **Temperature Table with Alerts:** A table lists recorded temperatures along with alarm and warning statuses, indicating when the temperature exceeds predefined limits.
+- **Alarm Log Table:** All alarms triggered during the simulation are recorded in a separate table, allowing users to review past alerts and system behavior.
+- **Notifications:** When the maximum temperature limit is exceeded, notifications appear in the bottom-right corner to alert the user immediately.
+- **Parameter Configuration:** Users can adjust fan settings, temperature thresholds, and other parameters to customize the simulation.
+- **User-Friendly Interface:** The UI is designed to be simple and intuitive, enabling easy control and monitoring of the simulator.
+
+## Technologies Used
+
+- React (frontend)
+- Node.js / NestJS (backend) — if applicable
+- Tailwind CSS / Ant Design — for UI styling (if used)
+- Other relevant libraries or frameworks
+
+## How to Run
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/username/ventilator-simulator.git
+cd ventilator-simulator
+```
+
+2. Install dependencies:
+
+```
+npm install
+```
+
+3. Start the app
+   
+   - backend:
+     ```
+     npm run dev
+     ```
+   - frontend
+     ```
+     npm run start
+     ```
+     
+4. Open your browser and go to: http://localhost:3000
+
+##Future Improvements
+
+- Support for multiple types of fans or sensors
+- Export/import configuration settings
+- Set a target temperature from interface
+
+
