@@ -17,12 +17,18 @@ This project is a simulator for controlling a fan/thermostat system. It allows u
 - **Parameter Configuration:** Users can adjust fan settings, temperature thresholds, and other parameters to customize the simulation.
 - **User-Friendly Interface:** The UI is designed to be simple and intuitive, enabling easy control and monitoring of the simulator.
 
+- ## Database and Cluster
+
+- The application uses **MongoDB** as the database to store temperature records, alarm logs, and configuration parameters.
+- Data is stored and retrieved from a **MongoDB Atlas cluster**, providing a secure, scalable, and highly available cloud database solution.
+- The cluster configuration ensures data durability and supports concurrent read/write operations necessary for real-time simulation and logging.
+- Connection to the MongoDB cluster is managed via a secure connection string, with credentials and sensitive information stored in environment variables for security.
+
 ## Technologies Used
 
 - React (frontend)
 - Node.js / NestJS (backend) — if applicable
 - Tailwind CSS / Ant Design — for UI styling (if used)
-- Other relevant libraries or frameworks
 
 ## How to Run
 
