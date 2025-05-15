@@ -17,11 +17,18 @@ This project is a simulator for controlling a fan/thermostat system. It allows u
 - **Parameter Configuration:** Users can adjust fan settings, temperature thresholds, and other parameters to customize the simulation.
 - **User-Friendly Interface:** The UI is designed to be simple and intuitive, enabling easy control and monitoring of the simulator.
 
-- ## Database and Cluster
+## Database and Cluster
 
 - The application uses **MongoDB** as the database to store temperature records, alarm logs, and configuration parameters.
 - Data is stored and retrieved from a **MongoDB Atlas cluster**, providing a secure, scalable, and highly available cloud database solution.
 - The cluster configuration ensures data durability and supports concurrent read/write operations necessary for real-time simulation and logging.
+
+## Real-Time Communication with WebSockets
+
+- The simulator uses **WebSockets** to enable real-time, bidirectional communication between the backend server and the frontend client.
+- Temperature data, fan status, alarms, and notifications are pushed instantly from the server to the client without the need for manual refreshing.
+- This ensures a seamless and dynamic user experience where all changes are reflected immediately on the UI.
+- WebSockets also handle real-time control commands from the user 
 
 ## Technologies Used
 
