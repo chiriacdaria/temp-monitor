@@ -8,7 +8,7 @@ This project is a simulator for controlling a fan/thermostat system. It allows u
 
 ## Key Features
 
-- **Temperature Simulation:** The temperature is preset between 21.5°C and 22.5°C, simulating a realistic range for the environment.
+- **Temperature Simulation:** The user sets an initial temperature range, and the simulation operates within these custom limits, dynamically adjusting the temperature to reflect realistic environmental changes based on the user's configuration.
 - **Fan Control:** The fan can be turned ON or OFF by pressing a toggle button. The button dynamically changes the fan’s state. Additionally, if the temperature decreases below the threshold and the button is not pressed, the fan stops automatically.
 - **Real-Time Temperature Graph:** A live chart displays temperature changes over time, helping users visualize how temperature fluctuates and how the fan responds.
 - **Temperature Table with Alerts:** A table lists recorded temperatures along with alarm and warning statuses, indicating when the temperature exceeds predefined limits.
