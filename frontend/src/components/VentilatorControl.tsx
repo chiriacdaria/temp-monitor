@@ -15,19 +15,39 @@ const VentilatorControl: React.FC<VentilatorControlProps> = ({ temp }) => {
   const animationRef = useRef<LottieRefCurrentProps>(null);
   const [socket, setSocket] = useState<Socket | null>(null);
 
-  // Functii pentru verificarea temperaturii
-  const isTemperatureHigh = (t: number) => t > 22.5;
-  const isTemperatureLow = (t: number) => t <= 21.5;
+  const [minTemp, setMinTemp] = useState(22.5);
+  const [maxTemp, setMaxTemp] = useState(25);
+  
+  useEffect(() => {
+    const storedRange = localStorage.getItem('tempRange');
+    console.log('Stored tempRange:', storedRange);
+    if (storedRange) {
+      try {
+        const { min, max } = JSON.parse(storedRange);
+        if (typeof min === 'number') setMinTemp(min);
+        if (typeof max === 'number') setMaxTemp(max);
+      } catch (error) {
+        console.warn('tempRange in localStorage is invalid JSON');
+      }
+    }
+  }, []);
+  
+  // Dacă vrei să vezi când se schimbă minTemp și maxTemp, un alt useEffect:
+  useEffect(() => {
+    console.log(`Praguri de temperatură actualizate: min=${minTemp}, max=${maxTemp}`);
+  }, [minTemp, maxTemp]);
+  
 
-  // Toggle pentru ventilator
+  const isTemperatureHigh = (t: number) => t > maxTemp;
+  const isTemperatureLow = (t: number) => t <= minTemp;
+
   const handleFanToggle = () => {
     const newStatus = !fanStatus;
     socket?.emit(newStatus ? 'startFan' : 'stopFan');
     setFanStatus(newStatus);
-    setAutoFanSuggested(false); // Resetăm sugestia când utilizatorul ia decizia
+    setAutoFanSuggested(false);
   };
 
-  // Conectare la socket
   useEffect(() => {
     const newSocket = io('http://localhost:3001');
     setSocket(newSocket);
@@ -41,44 +61,38 @@ const VentilatorControl: React.FC<VentilatorControlProps> = ({ temp }) => {
     };
   }, []);
 
-  // Actualizarea stării ventilatorului pe baza temperaturii
   useEffect(() => {
     if (temp?.value != null) {
       const currentTemp = temp.value;
 
-      // Sugestie vizuală: pornește ventilatorul dacă temperatura este prea mare și ventilatorul este oprit
       if (isTemperatureHigh(currentTemp) && !fanStatus) {
         setAutoFanSuggested(true);
       } else {
         setAutoFanSuggested(false);
       }
 
-      // Oprire automată a ventilatorului când temperatura scade sub 21.5
       if (fanStatus && isTemperatureLow(currentTemp)) {
         setFanStatus(false);
         socket?.emit('stopFan');
       }
     }
-  }, [temp, fanStatus, socket]);
+  }, [temp, fanStatus, socket, minTemp, maxTemp]);
 
-  // Actualizare animație în funcție de starea ventilatorului
   useEffect(() => {
     if (animationRef.current) {
       fanStatus ? animationRef.current.play() : animationRef.current.stop();
     }
   }, [fanStatus]);
 
-  // Determinarea textului butonului
   const getButtonText = () => {
     if (fanStatus && isTemperatureLow(temp?.value || 0)) return 'Oprește ventilatorul';
     if (!fanStatus && isTemperatureHigh(temp?.value || 0)) return 'Pornește ventilatorul';
     return fanStatus ? 'Ventilator pornit. Apasă pentru a opri ventilatorul.' : 'Ventilator oprit';
   };
 
-  // Determinarea culorii butonului
   const getButtonColor = () => {
-    if (!fanStatus && autoFanSuggested) return 'bg-[#fc014d] animate-pulse';  // sugestie de pornire
-    if (fanStatus && isTemperatureLow(temp?.value || 0)) return 'bg-blue-600 animate-pulse'; // sugestie de oprire
+    if (!fanStatus && autoFanSuggested) return 'bg-[#fc014d] animate-pulse';
+    if (fanStatus && isTemperatureLow(temp?.value || 0)) return 'bg-blue-600 animate-pulse';
     return fanStatus ? 'bg-[#004e48]' : 'bg-gray-500';
   };
 
@@ -88,9 +102,9 @@ const VentilatorControl: React.FC<VentilatorControlProps> = ({ temp }) => {
         onClick={handleFanToggle}
         text={getButtonText()}
         color={getButtonColor()}
-        disabled={!autoFanSuggested && !fanStatus} // Buton activ doar dacă se sugerează acțiunea
+        disabled={!autoFanSuggested && !fanStatus}
+        dataTestId={`btn-temp-${temp?.value?.toFixed(0)}`} 
       />
-
       <div className="mt-8">
         <Lottie
           animationData={ventilatorAnimation}

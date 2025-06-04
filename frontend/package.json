@@ -14,6 +14,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-lottie": "^1.2.10",
+    "react-router-dom": "^7.6.1",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.5",
     "recharts": "^2.15.3",
@@ -24,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -45,10 +48,12 @@
     ]
   },
   "devDependencies": {
+    "@types/cypress": "^1.1.6",
     "@types/node": "^22.15.17",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.4",
     "@types/react-lottie": "^1.2.10",
+    "cypress": "^14.4.0",
     "typescript": "^4.9.5"
   }
 }

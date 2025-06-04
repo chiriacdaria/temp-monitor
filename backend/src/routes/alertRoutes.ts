@@ -28,6 +28,7 @@ router.get('/all', async (req: Request, res: Response) => {
 // Ruta pentru adăugarea unei alerte
 router.post('/', async (req: Request, res: Response) => {
   const { sensor_id, alert_type, threshold, current_value, status, message } = req.body;
+  console.log('Received alert data:', req.body);
   try {
     const alert = new AlertModel({ sensor_id, alert_type, threshold, current_value, status, message });
    console.log('Alert created:', alert);
@@ -37,5 +38,20 @@ router.post('/', async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error creating alert', error });
   }
 });
+
+// Ruta pentru obținerea unei alerte după ID
+router.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const alert = await AlertModel.findById(req.params.id);
+    if (!alert) {
+       res.status(404).json({ message: 'Alertă negăsită' });
+    }
+    res.json(alert);
+  } catch (error) {
+    console.error('Eroare la obținerea alertei:', error);
+    res.status(500).json({ message: 'Eroare la obținerea alertei.' });
+  }
+});
+
 
 export default router;

@@ -28,7 +28,7 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
 	return (
 		
 <div className="w-full h-full p-4 bg-white shadow-md rounded-xl">
-	<h2 className="mb-2 text-lg font-semibold text-[#002f2b]">Evoluția Temperaturii</h2>
+	<h2 className="mb-2 text-md font-medium text-[#002f2b]">Evoluția Temperaturii</h2>
       <ResponsiveContainer width="100%" height="90%">
         <LineChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />

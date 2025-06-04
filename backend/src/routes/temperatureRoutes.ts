@@ -4,6 +4,9 @@ import { handleGetLatestTemperature } from '../handlers/GetLatestTemperatureHand
 import { handleUpdateTemperature } from '../handlers/UpdateTemperatureHandler';
 import { GetLatestTemperatureQuery } from '../queries/GetLatestTemperatureQuery';
 import { TemperatureModel } from '../models/TemperatureModel';
+import { handleGetTempInterval } from '../handlers/GetTempIntervalHandler';
+import { setTemperatureRange, getTemperatureRange } from '../services/TempIntervalService';
+import { startSimulation } from '../server';
 
 const router = express.Router();
 
@@ -42,6 +45,33 @@ router.get('/latest', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error fetching latest temperature', error });
   }
+});
+
+router.get('/interval', async (req, res) => {
+  try {
+    const interval = await handleGetTempInterval();
+    res.status(200).json(interval);
+    console.log('Temperature interval fetched:', interval);
+  } catch (error) {
+    console.error('Error fetching temperature interval:', error);
+    res.status(500).json({ message: 'Error fetching temperature interval', error });
+  }
+});
+
+
+router.post('/interval', (req, res) => {
+  const { min, max } = req.body;
+
+  if (min === undefined || max === undefined) {
+     res.status(400).json({ message: 'Min și Max trebuie specificate.' });
+  }
+
+  setTemperatureRange({ min, max });
+  console.log(`✅ Interval setat: ${min}°C - ${max}°C`);
+
+  startSimulation();
+
+  res.status(200).json({ message: 'Interval salvat cu succes' });
 });
 
 
