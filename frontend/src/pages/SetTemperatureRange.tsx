@@ -1,4 +1,3 @@
-// src/pages/SetTemperatureRange.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

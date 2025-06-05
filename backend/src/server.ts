@@ -106,7 +106,7 @@ app.use('/api/sensor', sensorRoutes);
 app.use('/api/device', deviceRoutes);
 
 server.listen(3001, () => {
-  console.log('✅ Serverul rulează pe http://localhost:3001');
+  console.log('✅ Serverul rulează pe http://localhost:300-=-=1');
 });
 
 export { startSimulation };

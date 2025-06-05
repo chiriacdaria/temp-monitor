@@ -1,5 +1,3 @@
-// TemperatureIntervalStore.ts
-
 export interface DesiredTemperatureRange {
   min: number;
   max: number;
